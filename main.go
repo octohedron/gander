@@ -2,10 +2,10 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"log"
 	"os"
 	"regexp"
-	"strconv"
 	"strings"
 )
 
@@ -30,7 +30,6 @@ func loadNGData() {
 		log.Fatal(err)
 	}
 	defer file.Close()
-
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		s := scanner.Text()
@@ -41,9 +40,6 @@ func loadNGData() {
 			if len(result) > 2 {
 				t.Gender = result[1]
 				t.Name = result[3]
-			} else {
-				log.Println(s)
-				log.Println(result)
 			}
 			if len(result) > 3 {
 				if result[4] != "" {
@@ -53,13 +49,28 @@ func loadNGData() {
 			NGData = append(NGData, t)
 		}
 	}
-	log.Println("DEBUG: loaded " + strconv.Itoa(len(NGData)) + " names with gender")
+	// log.Println("DEBUG: loaded " + strconv.Itoa(len(NGData)) + " names with gender")
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
 }
 
+// checkGender returns the gender of the name
+func checkGender(name string) (v NameGender, err error) {
+	for _, v := range NGData {
+		if v.Name == name {
+			return v, nil
+		}
+	}
+	return NameGender{}, errors.New("Name not found")
+}
+
 func main() {
 	aRgx, _ = regexp.Compile("^([=\\?]?[1F]?[1M]?[=F]?[\\?M]?)([\\p{L}]+)?\\s+?([\\p{L}]+)\\s?([\\p{L}]+)?")
 	loadNGData()
+	r, err := checkGender("Gustavo")
+	if err != nil {
+		panic(err)
+	}
+	log.Println(r.Gender)
 }
