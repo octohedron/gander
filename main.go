@@ -9,9 +9,6 @@ import (
 	"strings"
 )
 
-// "strings"
-// "sync"
-
 // NameGender is a gender and name type
 type NameGender struct {
 	Name   string
@@ -43,7 +40,7 @@ func loadNGData() {
 			}
 			if len(result) > 3 {
 				if result[4] != "" {
-					t.Name = t.Name + result[4]
+					t.Name = t.Name + " " + result[4]
 				}
 			}
 			NGData = append(NGData, t)
@@ -68,9 +65,10 @@ func checkGender(name string) (v NameGender, err error) {
 func main() {
 	aRgx, _ = regexp.Compile("^([=\\?]?[1F]?[1M]?[=F]?[\\?M]?)([\\p{L}]+)?\\s+?([\\p{L}]+)\\s?([\\p{L}]+)?")
 	loadNGData()
-	r, err := checkGender("Gustavo")
+	r, err := checkGender("Kazik Kazimierz")
 	if err != nil {
-		panic(err)
+		log.Println(err)
+	} else {
+		log.Println(r.Gender)
 	}
-	log.Println(r.Gender)
 }
