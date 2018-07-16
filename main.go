@@ -35,12 +35,12 @@ func loadNGData() {
 			// log.Println(result)
 			var t NameGender
 			if len(result) > 2 {
-				t.Gender = result[1]
-				t.Name = result[3]
+				t.Gender = strings.ToLower(result[1])
+				t.Name = strings.ToLower(result[3])
 			}
 			if len(result) > 3 {
 				if result[4] != "" {
-					t.Name = t.Name + " " + result[4]
+					t.Name = t.Name + " " + strings.ToLower(result[4])
 				}
 			}
 			NGData = append(NGData, t)
@@ -53,7 +53,8 @@ func loadNGData() {
 }
 
 // checkGender returns the gender of the name
-func checkGender(name string) (v NameGender, err error) {
+func checkGender(n string) (v NameGender, err error) {
+	name := strings.ToLower(n)
 	for _, v := range NGData {
 		if v.Name == name {
 			return v, nil
