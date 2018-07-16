@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -28,6 +29,7 @@ func loadNGData() {
 	}
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
+	pRep := []string{"", " ", "-"}
 	for scanner.Scan() {
 		s := scanner.Text()
 		if !strings.ContainsAny(s, "#") {
@@ -43,10 +45,19 @@ func loadNGData() {
 					t.Name = t.Name + " " + strings.ToLower(result[4])
 				}
 			}
-			NGData = append(NGData, t)
+			if strings.ContainsAny(t.Name, "+") {
+				for _, v := range pRep {
+					NGData = append(NGData, NameGender{
+						Name:   strings.Replace(t.Name, "+", v, -1),
+						Gender: t.Gender,
+					})
+				}
+			} else {
+				NGData = append(NGData, t)
+			}
 		}
 	}
-	// log.Println("DEBUG: loaded " + strconv.Itoa(len(NGData)) + " names with gender")
+	log.Println("DEBUG: loaded " + strconv.Itoa(len(NGData)) + " names with gender")
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
@@ -64,9 +75,10 @@ func checkGender(n string) (v NameGender, err error) {
 }
 
 func main() {
-	aRgx, _ = regexp.Compile("^([=\\?]?[1F]?[1M]?[=F]?[\\?M]?)([\\p{L}]+)?\\s+?([\\p{L}]+)\\s?([\\p{L}]+)?")
+	aRgx, _ = regexp.Compile("^([=\\?]?[1F]?[1M]?[=F]?[\\?M]?)([\\p{L}]+)?\\s+?([\\p{L}]+?[\\p{L}\\+]+)\\s?([\\p{L}]+)?")
 	loadNGData()
-	r, err := checkGender("Kazik Kazimierz")
+	log.Println(strings.ContainsAny(strings.ToLower("Er+Dong"), "+"))
+	r, err := checkGender("Er Dong")
 	if err != nil {
 		log.Println(err)
 	} else {
