@@ -1,10 +1,10 @@
-package test
+package main
 
 import "log"
 import "github.com/octohedron/gander/gander"
 
-func test() {
-	r, err := gander.checkGender("Er Dong")
+func main() {
+	r, err := gander.CheckGender("Er Dong")
 	if err != nil {
 		log.Println(err)
 	} else {
