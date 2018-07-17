@@ -83,7 +83,6 @@ func CheckGender(n string) (v NameGender, err error) {
 }
 
 func main() {
-	log.Println(strings.ContainsAny(strings.ToLower("Er+Dong"), "+"))
 	r, err := CheckGender("Er Dong")
 	if err != nil {
 		log.Println(err)
