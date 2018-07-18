@@ -79,7 +79,7 @@ func CheckGender(n string) (v NameGender, err error) {
 			return v, nil
 		}
 	}
-	return NameGender{}, errors.New("Name not found")
+	return NameGender{Gender: "unknown", Name: name}, errors.New("Name not found")
 }
 
 func main() {
