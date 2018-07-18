@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -45,27 +46,29 @@ func loadNGData() {
 			// log.Println(result)
 			var t NameGender
 			if len(result) > 2 {
-				t.Gender = strings.ToLower(result[1])
-				t.Name = strings.ToLower(result[3])
-			}
-			if len(result) > 3 {
-				if result[4] != "" {
-					t.Name = t.Name + " " + strings.ToLower(result[4])
+				if result[1] != "?" {
+					t.Gender = strings.ToLower(result[1])
+					t.Name = strings.ToLower(result[3])
+					if len(result) > 3 {
+						if result[4] != "" {
+							t.Name = t.Name + " " + strings.ToLower(result[4])
+						}
+					}
+					if strings.ContainsAny(t.Name, "+") {
+						for _, v := range pRep {
+							NGData = append(NGData, NameGender{
+								Name:   strings.Replace(t.Name, "+", v, -1),
+								Gender: t.Gender,
+							})
+						}
+					} else {
+						NGData = append(NGData, t)
+					}
 				}
-			}
-			if strings.ContainsAny(t.Name, "+") {
-				for _, v := range pRep {
-					NGData = append(NGData, NameGender{
-						Name:   strings.Replace(t.Name, "+", v, -1),
-						Gender: t.Gender,
-					})
-				}
-			} else {
-				NGData = append(NGData, t)
 			}
 		}
 	}
-	// log.Println("DEBUG: loaded " + strconv.Itoa(len(NGData)) + " names with gender")
+	log.Println("DEBUG: loaded " + strconv.Itoa(len(NGData)) + " names with gender")
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
