@@ -40,13 +40,18 @@ func loadNGData() {
 	pRep := []string{"", " ", "-"}
 	for scanner.Scan() {
 		s := scanner.Text()
+		// don't parse the beginning of the file
 		if !strings.ContainsAny(s, "#") {
-			result := aRgx.FindStringSubmatch(s)
-			// log.Println(result)
+			// parse current line with the regex
+			line := aRgx.FindStringSubmatch(s)
+			// log.Println(line)
 			var t NameGender
-			if len(result) > 2 {
-				if result[1] != "?" {
-					t.Gender = strings.ToLower(result[1])
+			// if the regex found at least 2 groups
+			if len(line) > 2 {
+				// if the gender is not unknown
+				if line[1] != "?" {
+					// assign gender
+					t.Gender = strings.ToLower(line[1])
 					// Make mostly female female
 					if t.Gender == "?f" {
 						t.Gender = "f"
@@ -55,15 +60,17 @@ func loadNGData() {
 					if t.Gender == "?m" {
 						t.Gender = "m"
 					}
-					t.Name = strings.ToLower(result[3])
-					// If name is 2 words, add the second name to the result
-					if len(result) > 3 {
-						if result[4] != "" {
-							t.Name = t.Name + " " + strings.ToLower(result[4])
+					t.Name = strings.ToLower(line[3])
+					// If name is 2 words, add the second name to the line
+					if len(line) > 3 {
+						if line[4] != "" {
+							t.Name = t.Name + " " + strings.ToLower(line[4])
 						}
 					}
+					// if the name has a + on it, replace it with ["", " " and "-"]
 					if strings.ContainsAny(t.Name, "+") {
 						for _, v := range pRep {
+							// load it in the global slice
 							NGData = append(NGData, NameGender{
 								Name:   strings.Replace(t.Name, "+", v, -1),
 								Gender: t.Gender,
