@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 	"regexp"
-	"strconv"
 	"strings"
 )
 
@@ -48,13 +47,16 @@ func loadNGData() {
 			if len(result) > 2 {
 				if result[1] != "?" {
 					t.Gender = strings.ToLower(result[1])
+					// Make mostly female female
 					if t.Gender == "?f" {
 						t.Gender = "f"
 					}
+					// make mostly male male
 					if t.Gender == "?m" {
 						t.Gender = "m"
 					}
 					t.Name = strings.ToLower(result[3])
+					// If name is 2 words, add the second name to the result
 					if len(result) > 3 {
 						if result[4] != "" {
 							t.Name = t.Name + " " + strings.ToLower(result[4])
@@ -74,7 +76,7 @@ func loadNGData() {
 			}
 		}
 	}
-	log.Println("DEBUG: loaded " + strconv.Itoa(len(NGData)) + " names with gender")
+	// log.Println("DEBUG: loaded " + strconv.Itoa(len(NGData)) + " names with gender")
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
