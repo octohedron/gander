@@ -28,7 +28,7 @@ var NGData []NameGender
 
 func loadNGData() {
 	gopath := os.Getenv("GOPATH")
-	log.Println(gopath)
+	// log.Println(gopath)
 	file, err := os.Open(gopath + "/src/github.com/octohedron/gander/gander/names_genders.txt")
 	if err != nil {
 		log.Fatal(err)
