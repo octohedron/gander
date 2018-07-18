@@ -48,6 +48,12 @@ func loadNGData() {
 			if len(result) > 2 {
 				if result[1] != "?" {
 					t.Gender = strings.ToLower(result[1])
+					if t.Gender == "?f" {
+						t.Gender = "f"
+					}
+					if t.Gender == "?m" {
+						t.Gender = "m"
+					}
 					t.Name = strings.ToLower(result[3])
 					if len(result) > 3 {
 						if result[4] != "" {
