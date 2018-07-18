@@ -27,11 +27,9 @@ var aRgx *regexp.Regexp
 var NGData []NameGender
 
 func loadNGData() {
-	dir, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
-	file, err := os.Open(dir + "/../gander/names_genders.txt")
+	gopath := os.Getenv("GOPATH")
+	log.Println(gopath)
+	file, err := os.Open(gopath + "/src/github.com/octohedron/gander/gander/names_genders.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
