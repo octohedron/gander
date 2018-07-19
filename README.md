@@ -8,10 +8,16 @@ Currently, the [python gender guesser](https://github.com/lead-ratings/gender-gu
 
 ## Usage
 
-+ Make sure you have your $GOPATH set, otherwise 
++ Make sure you have your `$GOPATH` set, otherwise 
 
 ```bash
-export GOPATH=~/go # or your gopath location
+$ export GOPATH=~/go # Or your gopath location
+```
+
++ Install
+
+```bash
+$ go get -u github.com/octohedron/gander/gander
 ```
 
 + Example
