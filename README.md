@@ -34,7 +34,7 @@ func main() {
 		// prints 'm'
 		log.Println(r.Gender)
 	} else {
-		// It could print 'unknown'
+		// It would print 'Aad'
 		log.Println(r.Name)
     }
 }
