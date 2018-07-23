@@ -51,11 +51,11 @@ func loadNGData() {
 					// assign gender
 					t.Gender = strings.ToLower(line[1])
 					// Make mostly female female
-					if t.Gender == "?f" {
+					if strings.ContainsAny(t.Gender, "f") {
 						t.Gender = "f"
 					}
 					// make mostly male male
-					if t.Gender == "?m" {
+					if strings.ContainsAny(t.Gender, "m") {
 						t.Gender = "m"
 					}
 					t.Name = strings.ToLower(line[3])
