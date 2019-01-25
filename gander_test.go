@@ -32,6 +32,25 @@ func TestGanderIterative(t *testing.T) {
 	t.Logf("Not found = %d", total-(females+males))
 }
 
+func TestAllLoadedNames(t *testing.T) {
+	var males int
+	var females int
+	var total int
+	for _, n := range NGData {
+		gender, err := CheckGender(n.Name)
+		total++
+		if err == nil {
+			if gender.Gender == "f" {
+				females++
+			} else if gender.Gender == "m" {
+				males++
+			}
+		}
+	}
+	t.Logf("In %d we found %d females and %d males", total, females, males)
+	t.Logf("Not found = %d", total-(females+males))
+}
+
 func TestGanderSingles(t *testing.T) {
 	r, err := CheckGender("Aad")
 	logErr(err)
