@@ -61,7 +61,6 @@ func TestAllLoadedNames(t *testing.T) {
 		}
 	}
 	t.Logf("In %d we found %d females and %d males", total, females, males)
-	t.Logf("Not found = %d", total-(females+males))
 }
 ```
 
@@ -69,15 +68,14 @@ Prints
 
 ```bash
 === RUN   TestAllLoadedNames
---- PASS: TestAllLoadedNames (2.35s)
-    ...gander/gander_test.go:50: In 42185 we found 20508 females and 20946 males
-    ...gander/gander_test.go:51: Not found = 731
+--- PASS: TestAllLoadedNames (2.32s)
+    ...gander/gander_test.go:50: In 41437 we found 20505 females and 20932 males
 PASS
-ok  	github.com/octohedron/gander	2.429s
+ok  	github.com/octohedron/gander	2.393s
 Success: Tests passed.
 ```
 
-2.4s for 42K names, or 17.367 names per second in a laptop
+2.32s for 41.437 names, or 17860 names per second in a laptop
 
 ### LICENSE
 + The data file nam_dict.txt is released under the GNU Free Documentation License.

@@ -48,7 +48,6 @@ func TestAllLoadedNames(t *testing.T) {
 		}
 	}
 	t.Logf("In %d we found %d females and %d males", total, females, males)
-	t.Logf("Not found = %d", total-(females+males))
 }
 
 func TestGanderSingles(t *testing.T) {
