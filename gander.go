@@ -47,7 +47,7 @@ func loadNGData() {
 			// if the regex found at least 2 groups
 			if len(line) > 2 {
 				// if the gender is not unknown
-				if line[1] != "?" {
+				if line[1] != "?" && line[1] != "=" {
 					// assign gender
 					t.Gender = strings.ToLower(line[1])
 					// Make mostly female female
