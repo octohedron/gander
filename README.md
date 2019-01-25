@@ -39,3 +39,7 @@ func main() {
     }
 }
 ```
+
+### LICENSE
++ The data file nam_dict.txt is released under the GNU Free Documentation License.
++ The project is released under MIT license
