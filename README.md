@@ -42,6 +42,43 @@ func main() {
 }
 ```
 
+## Performance
+
+```go
+func TestAllLoadedNames(t *testing.T) {
+	var males int
+	var females int
+	var total int
+	for _, n := range NGData {
+		gender, err := CheckGender(n.Name)
+		total++
+		if err == nil {
+			if gender.Gender == "f" {
+				females++
+			} else if gender.Gender == "m" {
+				males++
+			}
+		}
+	}
+	t.Logf("In %d we found %d females and %d males", total, females, males)
+	t.Logf("Not found = %d", total-(females+males))
+}
+```
+
+Prints 
+
+```bash
+=== RUN   TestAllLoadedNames
+--- PASS: TestAllLoadedNames (2.35s)
+    ...gander/gander_test.go:50: In 42185 we found 20508 females and 20946 males
+    ...gander/gander_test.go:51: Not found = 731
+PASS
+ok  	github.com/octohedron/gander	2.429s
+Success: Tests passed.
+```
+
+2.4s for 42K names, or 17.367 names per second in a laptop
+
 ### LICENSE
 + The data file nam_dict.txt is released under the GNU Free Documentation License.
 + The project is released under the MIT license
