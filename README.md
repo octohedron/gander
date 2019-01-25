@@ -48,10 +48,8 @@ func main() {
 func TestAllLoadedNames(t *testing.T) {
 	var males int
 	var females int
-	var total int
 	for _, n := range NGData {
 		gender, err := CheckGender(n.Name)
-		total++
 		if err == nil {
 			if gender.Gender == "f" {
 				females++
@@ -60,7 +58,7 @@ func TestAllLoadedNames(t *testing.T) {
 			}
 		}
 	}
-	t.Logf("In %d we found %d females and %d males", total, females, males)
+	t.Logf("In %d we found %d females and %d males", len(NGData), females, males)
 }
 ```
 
