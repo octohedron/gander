@@ -17,7 +17,7 @@ $ export GOPATH=~/go # Or your gopath location
 + Install
 
 ```bash
-$ go get -u github.com/octohedron/gander/gander
+$ go get -u github.com/octohedron/gander
 ```
 
 + Example
@@ -26,7 +26,7 @@ $ go get -u github.com/octohedron/gander/gander
 package main
 
 import "log"
-import "github.com/octohedron/gander/gander"
+import "github.com/octohedron/gander"
 
 func main() {
 	r, err := gander.CheckGender("Aad")
@@ -39,11 +39,3 @@ func main() {
     }
 }
 ```
-
-## Benchmark
-
-With MongoDB and a collection of around ~2M documents, it updates around 1.000 documents per second
-
-## Contributing
-
-Yes, there's performance improvements and features to add, so feel free to send PRs
