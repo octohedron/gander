@@ -18,12 +18,12 @@ func TestGanderIterative(t *testing.T) {
 	var females int
 	var total int
 	for _, n := range names {
-		gender, err := CheckGender(n)
+		g, err := CheckGender(n)
 		total++
 		if err == nil {
-			if gender.Gender == "f" {
+			if g.Gender == "f" {
 				females++
-			} else if gender.Gender == "m" {
+			} else if g.Gender == "m" {
 				males++
 			}
 		}
