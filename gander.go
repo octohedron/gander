@@ -97,12 +97,3 @@ func CheckGender(n string) (v NameGender, err error) {
 	}
 	return NameGender{Gender: "unknown", Name: name}, errors.New("Name not found")
 }
-
-func main() {
-	r, err := CheckGender("Er Dong")
-	if err != nil {
-		log.Println(err)
-	} else {
-		log.Println(r.Gender)
-	}
-}
