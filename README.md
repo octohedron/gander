@@ -53,7 +53,7 @@ func TestAllLoadedNames(t *testing.T) {
 		if err == nil {
 			if g.Gender == "f" {
 				females++
-			} else if g.Gender == "m" {
+			} else {
 				males++
 			}
 		}

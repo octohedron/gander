@@ -36,11 +36,11 @@ func TestAllLoadedNames(t *testing.T) {
 	var males int
 	var females int
 	for _, n := range NGData {
-		gender, err := CheckGender(n.Name)
+		g, err := CheckGender(n.Name)
 		if err == nil {
-			if gender.Gender == "f" {
+			if g.Gender == "f" {
 				females++
-			} else if gender.Gender == "m" {
+			} else {
 				males++
 			}
 		}
