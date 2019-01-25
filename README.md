@@ -75,7 +75,7 @@ ok  	github.com/octohedron/gander	2.393s
 Success: Tests passed.
 ```
 
-2.32s for 41.437 names, or 17860 names per second in a laptop
+2.32s for 41.437 names, or 17.860 names per second in a laptop
 
 ### LICENSE
 + The data file nam_dict.txt is released under the GNU Free Documentation License.
