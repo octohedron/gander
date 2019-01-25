@@ -36,7 +36,7 @@ func main() {
 		// prints 'm'
 		log.Println(g.Gender)
 	} else {
-		// It would print 'Aad' if there was an error
+		// It would print 'Aad', if there was an error
 		log.Println(g.Name)
     }
 }
@@ -76,5 +76,5 @@ Success: Tests passed.
 2.32s for 41.437 names, or 17.860 names per second in a laptop
 
 ### LICENSE
-+ The data file nam_dict.txt is released under the GNU Free Documentation License.
++ The data file names_genders.txt is released under the GNU Free Documentation License.
 + The project is released under the MIT license
