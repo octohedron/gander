@@ -31,13 +31,13 @@ import "log"
 import "github.com/octohedron/gander"
 
 func main() {
-	r, err := gander.CheckGender("Aad")
+	g, err := gander.CheckGender("Aad")
 	if err == nil {
 		// prints 'm'
-		log.Println(r.Gender)
+		log.Println(g.Gender)
 	} else {
-		// It would print 'Aad'
-		log.Println(r.Name)
+		// It would print 'Aad' if there was an error
+		log.Println(g.Name)
     }
 }
 ```
