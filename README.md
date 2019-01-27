@@ -55,18 +55,22 @@ func TestAllLoadedNames(t *testing.T) {
 			g, err := CheckGender(n.Name)
 			if err == nil {
 				if g.Gender == "f" {
-					females++
+					c <- 1
 				} else {
-					males++
+					c <- 0
 				}
 			}
-			c <- 1
 		}(n)
 	}
 	for p := range c {
-		complete += p
+		complete++
 		if complete == len(NGData) {
 			break
+		}
+		if p == 1 {
+			females++
+		} else {
+			males++
 		}
 	}
 	log.Println("COMPLETED")
