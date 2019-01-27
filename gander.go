@@ -18,6 +18,8 @@ type NameGender struct {
 func init() {
 	aRgx, _ = regexp.Compile("^([=\\?]?[1F]?[1M]?[=F]?[\\?M]?)([\\p{L}]+)?\\s+?([\\p{L}]+?[\\p{L}\\+]+)\\s?([\\p{L}]+)?")
 	loadNGData()
+	// log.SetFlags(log.LstdFlags | log.Lmicroseconds)
+	// log.Println("LOADED")
 }
 
 // aRgx all regex, match all what we need from the line

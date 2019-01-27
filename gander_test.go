@@ -35,16 +35,28 @@ func TestGanderIterative(t *testing.T) {
 func TestAllLoadedNames(t *testing.T) {
 	var males int
 	var females int
+	c := make(chan int)
+	var complete int
 	for _, n := range NGData {
-		g, err := CheckGender(n.Name)
-		if err == nil {
-			if g.Gender == "f" {
-				females++
-			} else {
-				males++
+		go func(n NameGender) {
+			g, err := CheckGender(n.Name)
+			if err == nil {
+				if g.Gender == "f" {
+					females++
+				} else {
+					males++
+				}
 			}
+			c <- 1
+		}(n)
+	}
+	for p := range c {
+		complete += p
+		if complete == len(NGData) {
+			break
 		}
 	}
+	log.Println("COMPLETED")
 	t.Logf("In %d we found %d females and %d males", len(NGData), females, males)
 }
 
