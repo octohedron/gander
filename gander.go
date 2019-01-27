@@ -15,18 +15,36 @@ type NameGender struct {
 	Gender string
 }
 
-func init() {
-	aRgx, _ = regexp.Compile("^([=\\?]?[1F]?[1M]?[=F]?[\\?M]?)([\\p{L}]+)?\\s+?([\\p{L}]+?[\\p{L}\\+]+)\\s?([\\p{L}]+)?")
-	loadNGData()
-	// log.SetFlags(log.LstdFlags | log.Lmicroseconds)
-	// log.Println("LOADED")
-}
-
 // aRgx all regex, match all what we need from the line
 var aRgx *regexp.Regexp
 
 // NGData is a slice of NameGender
 var NGData []NameGender
+
+// NGMap is a map[string]int
+var NGMap map[string]int
+
+func init() {
+	aRgx, _ = regexp.Compile("^([=\\?]?[1F]?[1M]?[=F]?[\\?M]?)([\\p{L}]+)?\\s+?([\\p{L}]+?[\\p{L}\\+]+)\\s?([\\p{L}]+)?")
+	NGMap = make(map[string]int)
+	loadNGData()
+}
+
+func getGenderFromString(g string) int {
+	if g == "f" {
+		return 2
+	}
+	return 1
+}
+
+func getGenderFromInt(g int) string {
+	if g == 2 {
+		return "f"
+	} else if g == 1 {
+		return "m"
+	}
+	return "unknown"
+}
 
 func loadNGData() {
 	gopath := os.Getenv("GOPATH")
@@ -71,12 +89,14 @@ func loadNGData() {
 					if strings.ContainsAny(t.Name, "+") {
 						for _, v := range pRep {
 							// load it in the global slice
+							NGMap[strings.Replace(t.Name, "+", v, -1)] = getGenderFromString(t.Gender)
 							NGData = append(NGData, NameGender{
 								Name:   strings.Replace(t.Name, "+", v, -1),
 								Gender: t.Gender,
 							})
 						}
 					} else {
+						NGMap[t.Name] = getGenderFromString(t.Gender)
 						NGData = append(NGData, t)
 					}
 				}
@@ -98,4 +118,9 @@ func CheckGender(n string) (v NameGender, err error) {
 		}
 	}
 	return NameGender{Gender: "unknown", Name: name}, errors.New("Name not found")
+}
+
+// CheckGenderMap returns the gender of the name
+func CheckGenderMap(n string) string {
+	return getGenderFromInt(NGMap[strings.ToLower(n)])
 }

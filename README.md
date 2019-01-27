@@ -44,6 +44,33 @@ func main() {
 
 ## Performance
 
+The fastest is to use the CheckGenderMap func, but it doesn't return an error, only `"unknown"` if it doesn't find the gender.
+
+```golang
+func TestBenchmark(t *testing.T) {
+	var males int
+	var females int
+	const total = 100000000 // 100 million
+	t.Log("START")
+	for i := 0; i < total; i++ {
+		g := CheckGenderMap(
+			NGData[rand.Intn(len(NGData))].Name)
+		if g == "f" {
+			females++
+		} else {
+			males++
+		}
+	}
+	t.Logf("In %d we found %d females and %d males", total, females, males)
+}
+```
+```bash
+2019/01/27 20:51:16.996857 START
+2019/01/27 20:51:29.781984 In 100000000 we found 47278122 females and 52721878 males
+```
+That's ~ 7.7M/s 🔥🔥🔥
+
+With error
 ```go
 func TestAllLoadedNames(t *testing.T) {
 	var males int
