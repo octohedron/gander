@@ -67,13 +67,13 @@ func TestAllLoadedNames(t *testing.T) {
 	}
 	for p := range c {
 		complete++
-		if complete == len(NGData) {
-			break
-		}
 		if p == 1 {
 			females++
 		} else {
 			males++
+		}
+		if complete == len(NGData) {
+			break
 		}
 	}
 	log.Println("COMPLETED")
